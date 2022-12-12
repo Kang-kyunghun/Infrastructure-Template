@@ -1,7 +1,11 @@
-# output "staging_vpc_id" {
-#   value = aws_vpc.staging.id
-# }
+output "DMZ_vpc_id" {
+  value = aws_vpc.DMZ.id
+}
 
-# output "staging_public_subnet_id" {
-#   value = aws_subnet.staging_public_subnet.id
-# }
+output "DMZ_public_subnet_a_id" {
+  value = aws_subnet.DMZ_public_subnet_a.id
+}
+
+output "DMZ_public_subnet_c_id" {
+  value = aws_subnet.DMZ_public_subnet_c.id
+}

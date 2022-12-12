@@ -3,7 +3,7 @@ provider "aws" {
   profile = "jack"
 }
 
-data "terraform_remote_state" "staging_vpc" {
+data "terraform_remote_state" "DMZ_vpc" {
   backend = "local"
 
   config = {
@@ -12,7 +12,7 @@ data "terraform_remote_state" "staging_vpc" {
 }
 
 resource "aws_security_group" "public_api" {
-  vpc_id      = data.terraform_remote_state.staging_vpc.outputs.staging_vpc_id
+  vpc_id      = data.terraform_remote_state.DMZ_vpc.outputs.DMZ_vpc_id
   name        = "Public API EC2 Security Group"
   description = "Public API EC2 Security Group"
 
@@ -61,7 +61,7 @@ resource "aws_instance" "public_api" {
   instance_type          = "t2.micro"
   key_name               = "terraform-tamplate-public-api"
   vpc_security_group_ids = [aws_security_group.public_api.id]
-  subnet_id              = data.terraform_remote_state.staging_vpc.outputs.staging_public_subnet_id
+  subnet_id              = data.terraform_remote_state.DMZ_vpc.outputs.DMZ_public_subnet_a_id
 
   tags = {
     Name = "public-api"
